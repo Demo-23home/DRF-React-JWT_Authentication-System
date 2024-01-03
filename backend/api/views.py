@@ -35,3 +35,17 @@ def dahsBoard(request):
         return Response({'response':response}, status=status.HTTP_200_OK)
     else:
         return Response({}, status=status.HTTP_400_BAD_REQUEST)
+    
+
+
+#Get all Routes
+# Get All Routes
+
+@api_view(['GET'])
+def getRoutes(request):
+    routes = [
+        '/api/token/',
+        '/api/register/',
+        '/api/token/refresh/'
+    ]
+    return Response(routes)
