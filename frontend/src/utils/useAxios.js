@@ -2,41 +2,38 @@ import axios from "axios";
 import { jwtDecode } from "jwt-decode";
 import dayjs from "dayjs";
 import { useContext } from "react";
-import AuthContext from "../context/AuthContext"
+import AuthContext from "../context/AuthContext";
 
-
-const baseUrl = "http://localhost:8000/api";
+const baseURL = "http://127.0.0.1:8000/api";
 
 const useAxios = () => {
-    const {authTokens, setUser, setAuthTokens} = useContext(AuthContext)
-    
-    const axiosInstance = axios.create({
-        baseURL,
-        headers: {Authorization: `Bearer ${authTokens?.access}`}
-    }).access
+  const { authTokens, setUser, setAuthTokens } = useContext(AuthContext);
 
-    axiosInstance.interceptors.request.use(async req => {
-        const user = jwtDecode(authTokens.access)
-        const isExpired = dayjs.unix(user.exp).diff(dayjs()) < 1
+  const axiosInstance = axios.create({
+    baseURL,
+    headers: { Authorization: `Bearer ${authTokens?.access}` }
+  });
 
-        if (isExpired) return req
+  axiosInstance.interceptors.request.use(async req => {
+    const user = jwtDecode(authTokens.access);
+    const isExpired = dayjs.unix(user.exp).diff(dayjs()) < 1;
 
-        const response = await axios.post(`${baseUrl}/token/refresh`, {
-            refresh: authTokens.refresh
-        })
+    if (!isExpired) return req;
 
-        localStorage.setItem("authToken", JSON.stringify(response.data))
-        
-        setAuthTokens(response.data)
-        setUser(jwtDecode(response.data.access))
+    const response = await axios.post(`${baseURL}/token/refresh/`, {
+      refresh: authTokens.refresh
+    });
+    localStorage.setItem("authTokens", JSON.stringify(response.data));
+    localStorage.setItem("authTokens", JSON.stringify(response.data));
 
+    setAuthTokens(response.data);
+    setUser(jwtDecode(response.data.access));
 
-        req.headers.Authorization = `${response.data.access}`
-        return req
-    })
+    req.headers.Authorization = `Bearer ${response.data.access}`;
+    return req;
+  });
 
-    return axiosInstance
-}
+  return axiosInstance;
+};
 
-
-export default useAxios
+export default useAxios;

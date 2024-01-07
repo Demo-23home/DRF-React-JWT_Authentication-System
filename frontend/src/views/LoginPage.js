@@ -1,7 +1,26 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
+import AuthContext from '../context/AuthContext'
+
+
 
 const LoginPage = () => {
+  
+  const {loginUser} = useContext(AuthContext)
+  const handleSubmit = (e) => {
+      e.preventDefault()
+      const email = e.target.email.value
+      const password = e.target.password.value
+
+      email.length > 0 && loginUser(email, password)
+
+      console.log(email);
+      console.log(password);
+  }
+
+
+
+
   return (
     <div><>
     <section className="vh-100" style={{ backgroundColor: "#9A616D" }}>
@@ -20,7 +39,7 @@ const LoginPage = () => {
                 </div>
                 <div className="col-md-6 col-lg-7 d-flex align-items-center">
                   <div className="card-body p-4 p-lg-5 text-black">
-                    <form>
+                    <form onSubmit={handleSubmit}>
                       <div className="d-flex align-items-center mb-3 pb-1">
                         <i
                           className="fas fa-cubes fa-2x me-3"
@@ -45,6 +64,7 @@ const LoginPage = () => {
                           type="email"
                           id="form2Example17"
                           className="form-control form-control-lg"
+                          name='email'
                         />
                         <label className="form-label" htmlFor="form2Example17">
                           Email address
@@ -55,6 +75,7 @@ const LoginPage = () => {
                           type="password"
                           id="form2Example27"
                           className="form-control form-control-lg"
+                          name='password'
                         />
                         <label className="form-label" htmlFor="form2Example27">
                           Password
@@ -63,7 +84,7 @@ const LoginPage = () => {
                       <div className="pt-1 mb-4">
                         <button
                           className="btn btn-dark btn-lg btn-block"
-                          type="button"
+                          type="submit"
                         >
                           Login
                         </button>

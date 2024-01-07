@@ -32,7 +32,7 @@ def dahsBoard(request):
     elif request.method == 'POST':
         text = request.POST.get("text")
         response = f"hey {request.user} this is an POST response , your text is {text}"
-        return Response({'response':response}, status=status.HTTP_200_OK)
+        return Response({' ':response}, status=status.HTTP_200_OK)
     else:
         return Response({}, status=status.HTTP_400_BAD_REQUEST)
     
@@ -49,3 +49,5 @@ def getRoutes(request):
         '/api/token/refresh/'
     ]
     return Response(routes)
+
+

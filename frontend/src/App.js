@@ -16,11 +16,12 @@ const App = () => {
   return (
     <Router>
       <AuthProvider>
-        <NavBar/>
+        < NavBar/>
         <Switch>
-          <PrivateRoute component={DashBoard} path="/dashboard" exact/>
-          <Route component={LoginPage} path='/login'/>
-          <Route component={RegisterPage} path='/register'/>
+          <Route component={DashBoard} path="/dashboard" exact />
+          <Route component={LoginPage} path="/login" />
+          <Route component={RegisterPage} path="/register" exact />
+          <Route component={HomePage} path="/" exact />
         </Switch>
       </AuthProvider>
     </Router>
