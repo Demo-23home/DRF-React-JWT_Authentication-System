@@ -1,7 +1,7 @@
 import { jwtDecode } from "jwt-decode";
 import {createContext, useState, useEffect} from "react"
 import {useHistory} from "react-router-dom";
-// const swal = require('sweetalert2')
+const swal = require('sweetalert2')
 
 const AuthContext = createContext();
 
@@ -45,28 +45,28 @@ export const AuthProvider = ({ children }) => {
             setUser(jwtDecode(data.access))
             localStorage.setItem("authTokens", JSON.stringify(data))
             history.push("/")
-            // swal.fire({
-            //     title: "Login Successful",
-            //     icon: "success",
-            //     toast: true,
-            //     timer: 6000,
-            //     position: 'top-right',
-            //     timerProgressBar: true,
-            //     showConfirmButton: false,
-            // })
+            swal.fire({
+                title: "Login Successful",
+                icon: "success",
+                toast: true,
+                timer: 6000,
+                position: 'top-right',
+                timerProgressBar: true,
+                showConfirmButton: false,
+            })
 
         } else {    
             console.log(response.status);
             console.log("there was a server issue");
-            // swal.fire({
-            //     title: "Username or passowrd does not exists",
-            //     icon: "error",
-            //     toast: true,
-            //     timer: 6000,
-            //     position: 'top-right',
-            //     timerProgressBar: true,
-            //     showConfirmButton: false,
-            // })
+            swal.fire({
+                title: "Username or passowrd does not exists",
+                icon: "error",
+                toast: true,
+                timer: 6000,
+                position: 'top-right',
+                timerProgressBar: true,
+                showConfirmButton: false,
+            })
         }
     }
 
@@ -82,27 +82,27 @@ export const AuthProvider = ({ children }) => {
         })
         if(response.status === 201){
             history.push("/login")
-            // swal.fire({
-            //     title: "Registration Successful, Login Now",
-            //     icon: "success",
-            //     toast: true,
-            //     timer: 6000,
-            //     position: 'top-right',
-            //     timerProgressBar: true,
-            //     showConfirmButton: false,
-            // })
+            swal.fire({
+                title: "Registration Successful, Login Now",
+                icon: "success",
+                toast: true,
+                timer: 6000,
+                position: 'top-right',
+                timerProgressBar: true,
+                showConfirmButton: false,
+            })
         } else {
             console.log(response.status);
             console.log("there was a server issue");
-            // swal.fire({
-            //     title: "An Error Occured " + response.status,
-            //     icon: "error",
-            //     toast: true,
-            //     timer: 6000,
-            //     position: 'top-right',
-            //     timerProgressBar: true,
-            //     showConfirmButton: false,
-            // })
+            swal.fire({
+                title: "An Error Occured " + response.status,
+                icon: "error",
+                toast: true,
+                timer: 6000,
+                position: 'top-right',
+                timerProgressBar: true,
+                showConfirmButton: false,
+            })
         }
     }
 
@@ -111,15 +111,15 @@ export const AuthProvider = ({ children }) => {
         setUser(null)
         localStorage.removeItem("authTokens")
         history.push("/login")
-        // swal.fire({
-        //     title: "YOu have been logged out...",
-        //     icon: "success",
-        //     toast: true,
-        //     timer: 6000,
-        //     position: 'top-right',
-        //     timerProgressBar: true,
-        //     showConfirmButton: false,
-        // })
+        swal.fire({
+            title: "YOu have been logged out...",
+            icon: "success",
+            toast: true,
+            timer: 6000,
+            position: 'top-right',
+            timerProgressBar: true,
+            showConfirmButton: false,
+        })
     }
 
     const contextData = {
